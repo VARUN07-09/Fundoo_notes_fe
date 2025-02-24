@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fundoo Dashboard</title>
+  <link rel="stylesheet" href="../styles/fundooDashboard.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script defer src="../js/fundooDashboard.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <img src="../assets/image.png" alt="Fundoo Logo">
+      <h2>Fundoo Keep</h2>
+    </div>
+    <ul class="nav-links">
+      <li id="notesTab" class="active">Notes</li>
+      <li id="archiveTab">Archive</li>
+      <li id="trashTab">Trash</li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <!-- <input type="text" placeholder="Take a note..." class="take-note-input" id="takeNoteInput"> -->
+      <div class="search-area">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button id="searchButton" class="search-btn">🔍</button>
+      </div>
+      <button id="logoutBtn" class="logout-btn">Logout</button>
+    </div>
+
+    <!-- Create Note Form -->
+    <div class="create-note">
+      <h4>Create a New Note</h4>
+      <form id="createNoteForm">
+        <input type="text" id="noteTitle" placeholder="Note Title" required>
+        <textarea id="noteContent" rows="3" placeholder="Note Content"></textarea>
+        <button type="submit">Add Note</button>
+      </form>
+    </div>
+
+    <!-- Notes Container -->
+    <div id="notesContainer">
+      <h3>All Notes</h3>
+      <div class="notes-list"></div>
+    </div>
+
+    <!-- Archive Section -->
+    <div id="archiveContainer" style="display: none;">
+      <h3>Archived Notes</h3>
+      <div class="archive-list"></div>
+    </div>
+
+    <!-- Trash Section -->
+    <div id="trashContainer" style="display: none;">
+      <h3>Trash</h3>
+      <div class="trash-list"></div>
+    </div>
+  </main>
+</body>
+</html>

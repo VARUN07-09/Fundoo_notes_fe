@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.fundoo-signup-container {
+    /* border: 2px solid blue; */
+    display: flex;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 900px;
+    align-items: center;
+}
+
+.fundoo-signup-form {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.fundoo-signup-input-box{
+    color: gray !important;
+}
+
+.form-floating label {
+    color: grey !important;
+}
+
+.fundoo-signup-title {
+    font-size: 24px;
+    color: #f4b400;
+    margin-bottom: 10px;
+}
+
+.fundoo-signup-helper {
+    font-size: 14px;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.fundoo-signup-submit-button {
+    background-color: #4285f4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.fundoo-signup-submit-button:hover {
+    background-color: #357ae8;
+}
+
+.fundoo-signup-signin-link {
+    font-size: 14px;
+    color: #4285f4;
+    text-decoration: none;
+}
+
+.fundoo-signup-signin-link:hover {
+    text-decoration: underline;
+}
+
+.fundoo-signup-image {
+    width: 400px;
+    height: auto;
+}
+
+.fundoo-signup-image-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.fundoo-signup-text{
+    font-weight: 500;
+}
+
+.fundoo-signup-actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
