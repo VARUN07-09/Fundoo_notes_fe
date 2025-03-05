@@ -101,21 +101,46 @@ $(document).ready(function () {
     $(document).on("click", ".color-btn", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log("Color button (create) clicked...");
+        console.log("Color button (create) clicked...", this, "Button exists:", $(this).length);
         const $button = $(this);
         let $palette = $("#expandedNote .color-palette");
 
         if ($palette.length && $palette.is(":hidden")) {
+            // Dynamically populate palette if empty
+            if ($palette.html().trim() === "") {
+                const colors = [
+                    { class: "white", color: "#ffffff" },
+                    { class: "red", color: "#f28b82" },
+                    { class: "orange", color: "#fbbc04" },
+                    { class: "yellow", color: "#fff475" },
+                    { class: "green", color: "#ccff90" },
+                    { class: "teal", color: "#a7ffeb" },
+                    { class: "blue", color: "#cbf0f8" },
+                    { class: "dark-blue", color: "#aecbfa" },
+                    { class: "purple", color: "#d7aefb" },
+                    { class: "pink", color: "#fdcfe8" },
+                    { class: "brown", color: "#e6c9a8" },
+                    { class: "gray", color: "#e8eaed" }
+                ];
+                let paletteContent = "";
+                colors.forEach(color => {
+                    paletteContent += `<div class="color-option ${color.class}" data-color="${color.class}" style="background-color: ${color.color}; width: 20px; height: 20px;"></div>`;
+                });
+                $palette.html(paletteContent);
+            }
             $palette.css({
                 top: $button.position().top + $button.outerHeight() + 5,
                 left: $button.position().left,
-                position: "absolute"
+                position: "absolute",
+                minHeight: "120px",
+                maxHeight: "240px"
             }).show();
             console.log("Palette shown at:", $palette.position());
         } else if ($palette.length) {
             $palette.hide();
+            console.log("Palette hidden");
         } else {
-            console.warn("Color palette not found in DOM");
+            console.warn("Color palette not found in DOM, checking:", $("#expandedNote .color-palette").length);
         }
 
         $palette.find(".color-option").off("click").on("click", function () {
@@ -135,10 +160,34 @@ $(document).ready(function () {
         let $palette = $("#editNoteModal .color-palette-note");
 
         if ($palette.length && $palette.is(":hidden")) {
+            // Dynamically populate palette if empty
+            if ($palette.html().trim() === "") {
+                const colors = [
+                    { class: "white", color: "#ffffff" },
+                    { class: "red", color: "#f28b82" },
+                    { class: "orange", color: "#fbbc04" },
+                    { class: "yellow", color: "#fff475" },
+                    { class: "green", color: "#ccff90" },
+                    { class: "teal", color: "#a7ffeb" },
+                    { class: "blue", color: "#cbf0f8" },
+                    { class: "dark-blue", color: "#aecbfa" },
+                    { class: "purple", color: "#d7aefb" },
+                    { class: "pink", color: "#fdcfe8" },
+                    { class: "brown", color: "#e6c9a8" },
+                    { class: "gray", color: "#e8eaed" }
+                ];
+                let paletteContent = "";
+                colors.forEach(color => {
+                    paletteContent += `<div class="color-option ${color.class}" data-color="${color.class}" style="background-color: ${color.color}; width: 20px; height: 20px;"></div>`;
+                });
+                $palette.html(paletteContent);
+            }
             $palette.css({
                 top: $button.position().top + $button.outerHeight() + 5,
                 left: $button.position().left,
-                position: "absolute"
+                position: "absolute",
+                minHeight: "120px",
+                maxHeight: "240px"
             }).show();
             console.log("Modal palette shown at:", $palette.position());
         } else if ($palette.length) {
@@ -228,13 +277,20 @@ $(document).ready(function () {
         $(".notes-container, .archive-container, .trash-container").hide();
         $(".fundoo-dash-create-note").hide();
 
+        // Update header text based on current view
         if (view === "notes") {
+            $(".keep-logo").text("Fundoo");
             $(".notes-container").show();
             $(".fundoo-dash-create-note").show();
+            console.log("Displaying Notes view");
         } else if (view === "archive") {
+            $(".keep-logo").text("Archive"); // Change header to "Archive"
             $(".archive-container").show();
+            console.log("Displaying Archive view");
         } else if (view === "trash") {
+            $(".keep-logo").text("Trash"); // Change header to "Trash"
             $(".trash-container").show();
+            console.log("Displaying Trash view");
         }
 
         const filteredNotes = view === "archive"
@@ -384,7 +440,7 @@ $(document).ready(function () {
         const noteId = noteCard.data("note-id");
         const wasArchived = noteCard.data("was-archived") === "true";
 
-        fetch(`http://localhost:3000/api/v1/notes/${noteId}/restore`, {
+        fetch(`http://localhost:3000/api/v1/notes/${noteId}/trash`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -455,19 +511,22 @@ $(document).ready(function () {
     $("#notesTab").on("click", function () {
         $(".fundoo-dash-sidebar nav ul li").removeClass("active");
         $(this).addClass("active");
-        displayNotes("notes");
+        currentView = "notes";
+        displayNotes(currentView);
     });
 
     $("#archiveTab").on("click", function () {
         $(".fundoo-dash-sidebar nav ul li").removeClass("active");
         $(this).addClass("active");
-        displayNotes("archive");
+        currentView = "archive";
+        displayNotes(currentView);
     });
 
     $("#trashTab").on("click", function () {
         $(".fundoo-dash-sidebar nav ul li").removeClass("active");
         $(this).addClass("active");
-        displayNotes("trash");
+        currentView = "trash";
+        displayNotes(currentView);
     });
 
     // Search Functionality
